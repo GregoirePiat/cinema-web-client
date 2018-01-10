@@ -1,0 +1,5 @@
+export const SET_PERSON_LIST = 'SET_PERSON_LIST';
+export const ADD_PERSON = 'ADD_PERSON';
+export const UPDATE_PERSON = 'UPDATE_PERSON';
+export const DELETE_PERSON = 'DELETE_PERSON';
+export const SELECT_PERSON = 'SELECT_PERSON';
