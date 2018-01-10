@@ -21,7 +21,7 @@ class Movies extends Component {
 
     render() {
 
-        let list = <CircularProgress className="" size={50}/>;
+        let list = <div className="center-loader"><CircularProgress  size={200}/></div>;
 
         if (this.props.movies.length > 0) {
             list = <List movies={this.props.movies} />

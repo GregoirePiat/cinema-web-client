@@ -21,7 +21,7 @@ class Actors extends Component {
 
     render() {
 
-        let list = <CircularProgress className="" size={50}/>;
+        let list = <div className="center-loader"><CircularProgress  size={200}/></div>;
 
         if (this.props.people.length > 0) {
             list = <List actors={this.props.people} />
@@ -41,8 +41,8 @@ class Actors extends Component {
 
 const mapStateToProps = states => {
     return {
-        people: states.actor.people.data,
-        upToDate: states.actor.actors.upToDate
+        people: states.person.people.data,
+        upToDate: states.person.people.upToDate
     };
 };
 const mapDispatchToProps = dispatch => {

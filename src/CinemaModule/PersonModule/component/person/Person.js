@@ -18,7 +18,7 @@ class Actor extends Component {
 
     render() {
 
-        let person = <CircularProgress className="" size={200}/>;
+        let person = <div className="center-loader"><CircularProgress  size={200}/></div>;
 
         if (this.props.person) {
             person = (

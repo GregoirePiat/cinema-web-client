@@ -22,7 +22,7 @@ class Movie extends Component {
 
     render() {
 
-        let movie = <CircularProgress className="" size={200}/>;
+        let movie = <div className="center-loader"><CircularProgress  size={200}/></div>;
 
         if (this.props.movie) {
             movie = (
