@@ -25,6 +25,6 @@ const itemBuilder = (movie) => {
 };
 
 
-const list = (props) => (<List>{props.actors.map(itemBuilder)}</List>);
+const list = (props) => (<List>{props.movies.map(itemBuilder)}</List>);
 
 export default list;

@@ -7,6 +7,7 @@ import * as actorAction from "../../store/actions";
 import List from './list';
 import AddIcon from 'material-ui-icons/Add';
 import {Button} from "material-ui";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -44,7 +45,7 @@ class Actors extends Component {
         return (
             <div className="relative-block">
                 <div className="top-position">
-                    <Button fab mini color="primary" aria-label="edit" >
+                    <Button fab mini color="primary" aria-label="edit" component={NavLink} to={this.props.location.pathname + '/new'}>
                         <AddIcon/>
                     </Button>
                 </div>

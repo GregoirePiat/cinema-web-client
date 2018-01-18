@@ -60,6 +60,18 @@ export const getMovieByIdRequest = (id) => {
     };
 };
 
+export const deleteMovieByIdRequest = (id) => {
+    return dispatch => {
+        api.delete('/movies/' + id)
+            .then(response => {
+                dispatch(deleteMovie(response.data));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
+};
+
 
 export const saveMovieRequest = (movie) => {
     const actors = movie.actors;

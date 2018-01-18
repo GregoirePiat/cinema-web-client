@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import * as actorAction from "../../store/actions";
 import {CircularProgress} from 'material-ui/Progress';
 import Detail from './detail/detail';
+import Form from './form/Form';
+import {Redirect, Route, Switch} from "react-router-dom";
 
 
 
@@ -11,9 +13,14 @@ class Actor extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            this.props.getMovieByIdRequest(this.props.match.params.id);
+            this.props.getPersonByIdRequest(this.props.match.params.id);
         }
     }
+
+    delete = () => {
+        this.props.deletePersonByIdRequest(this.props.person.id);
+        this.props.history.push('/actors');
+    };
 
 
     render() {
@@ -22,7 +29,12 @@ class Actor extends Component {
 
         if (this.props.person) {
             person = (
-               <Detail person={this.props.person} />
+                <Switch>
+                    <Route path={this.props.match.url + '/edit'} component={() => <Form person={this.props.person}/>} />
+                    <Route path={this.props.match.url} component={() => <Detail person={this.props.person} delete={this.delete}/>}/>
+                    <Redirect from={this.props.match.url} to={this.props.match.url} />
+                </Switch>
+
             )
         }
 
@@ -37,7 +49,8 @@ const mapStateToProps = states => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getMovieByIdRequest: (id) => dispatch(actorAction.getPersonByIdRequest(id))
+        getPersonByIdRequest: (id) => dispatch(actorAction.getPersonByIdRequest(id)),
+        deletePersonByIdRequest: (id) => dispatch(actorAction.deletePersonByIdRequest(id))
     };
 };
 

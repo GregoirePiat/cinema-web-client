@@ -43,7 +43,8 @@ const reducer = (state = initialState, action) => {
             return downTodate(state, action);
         case actionTypes.UPDATE_MOVIE:
             return downTodate(state, action);
-        case actionTypes.DELETE_MOVIE:break;
+        case actionTypes.DELETE_MOVIE:
+            return downTodate(state, action);
         case actionTypes.SELECT_MOVIE:
             return selectMovie(state, action);
         default:

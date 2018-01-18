@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import api from '../../../axios';
-import {addMovie, updateMovie} from "../../MovieModule/store/actions";
 
 export const setPersonList = (movies) => {
     return {
@@ -61,12 +60,24 @@ export const getPersonByIdRequest = (id) => {
     };
 };
 
-export const saveMovieRequest = (person) => {
+export const deletePersonByIdRequest = (id) => {
+    return dispatch => {
+        api.delete('/people/' + id)
+            .then(response => {
+                dispatch(deletePerson(response.data));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
+};
+
+export const savePersonRequest = (person) => {
     return dispatch => {
         (person.id ? api.put('/people/' + person.id, person) : api.post('/people/', person))
             .then((response) => {
                 dispatch(
-                    person.id ? updateMovie(response.data) : addMovie(response.data)
+                    person.id ? updatePerson(response.data) : addPerson(response.data)
                 );
             })
             .catch(error => {

@@ -7,6 +7,7 @@ import TodayIcon from 'material-ui-icons/Today';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import DeleteIcon from 'material-ui-icons/Delete';
 import {NavLink,withRouter} from "react-router-dom";
+import ListMovie from './listMovie'
 
 
 
@@ -23,7 +24,7 @@ export default withRouter((props) => {
                 <Button component={NavLink} to={props.location.pathname + '/edit'} fab mini color="primary" aria-label="edit" >
                     <ModeEditIcon/>
                 </Button>
-                <Button fab mini  color="accent" aria-label="edit" >
+                <Button fab mini  color="accent" aria-label="edit" onClick={props.delete}>
                     <DeleteIcon/>
                 </Button>
             </div>
@@ -49,6 +50,11 @@ export default withRouter((props) => {
                 </ListItem>
             </List>
             <Divider/>
+            <Typography type="headline" component="h2" align='center'>
+                Les roles :
+            </Typography>
+            <Divider/>
+            <ListMovie movies={props.person.movies}/>
         </div>
     );
 })

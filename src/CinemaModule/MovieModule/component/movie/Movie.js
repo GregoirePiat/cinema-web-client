@@ -19,6 +19,11 @@ class Movie extends Component {
         }
     }
 
+    delete = () => {
+        this.props.deleteMovieByIdRequest(this.props.movie.id);
+        this.props.history.push('/movies');
+    };
+
 
     render() {
 
@@ -28,7 +33,7 @@ class Movie extends Component {
             movie = (
                 <Switch>
                     <Route path={this.props.match.url + '/edit'} component={() => <Form movie={this.props.movie}/>} />
-                    <Route path={this.props.match.url} component={() => <Detail movie={this.props.movie}/>}/>
+                    <Route path={this.props.match.url} component={() => <Detail movie={this.props.movie} delete={this.delete}/>}/>
                     <Redirect from={this.props.match.url} to={this.props.match.url} />
                 </Switch>
             )
@@ -45,7 +50,8 @@ const mapStateToProps = states => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        getMovieByIdRequest: (id) => dispatch(movieAction.getMovieByIdRequest(id))
+        getMovieByIdRequest: (id) => dispatch(movieAction.getMovieByIdRequest(id)),
+        deleteMovieByIdRequest: (id) => dispatch(movieAction.deleteMovieByIdRequest(id)),
     };
 };
 

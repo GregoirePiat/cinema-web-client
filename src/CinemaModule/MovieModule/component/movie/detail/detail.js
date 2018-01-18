@@ -18,7 +18,7 @@ export default withRouter((props) => (
             <Button fab mini component={NavLink} to={props.location.pathname + '/edit'} color="primary" aria-label="edit" >
                 <ModeEditIcon/>
             </Button>
-            <Button fab mini  color="accent" aria-label="edit" >
+            <Button fab mini  color="accent" aria-label="edit" onClick={props.delete} >
                 <DeleteIcon/>
             </Button>
         </div>
