@@ -15,7 +15,7 @@ export default (props) => (
         <Grid container alignItems="flex-start" direction="row" justify="center" spacing={40}>
             <Grid item xs={12} md={4} sm={8}>
                 <FormControl style={style}>
-                    <InputLabel htmlFor="name-multiple">Categorie</InputLabel>
+                    <InputLabel htmlFor="category-id">Categorie</InputLabel>
                     <Select
                         value={props.category.id}
                         onChange={(event)=> props.handleChange('category')(convertValue(event.target.value))}
@@ -27,6 +27,25 @@ export default (props) => (
                                 value={category.id}
                             >
                                 {category.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4} sm={8}>
+                <FormControl style={style}>
+                    <InputLabel htmlFor="director-id">Directeur</InputLabel>
+                    <Select
+                        value={props.director.id || 0}
+                        onChange={(event) => props.handleChange('director')(convertValue(event.target.value))}
+                        input={<Input name="director-id" id="director-id"/>}
+                    >
+                        {props.people.map(person => (
+                            <MenuItem
+                                key={person.id}
+                                value={person.id}
+                            >
+                                {person.firstname + ' ' + person.lastname}
                             </MenuItem>
                         ))}
                     </Select>

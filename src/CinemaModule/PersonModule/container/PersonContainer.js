@@ -11,7 +11,7 @@ class PersonContainer extends Component {
 
     render() {
         return (
-            <Paper className="PersonContainer">
+            <Paper>
                 <Switch>
                     <Route path={this.props.match.url + '/:id'} component={Actor}/>
                     <Route path={this.props.match.url} component={Actors}/>

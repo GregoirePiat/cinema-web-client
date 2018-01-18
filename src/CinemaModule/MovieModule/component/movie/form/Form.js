@@ -5,7 +5,9 @@ import ActorsForm from './actors';
 import validator from '../../../../../common/utils/validation';
 import * as personAction from "../../../../PersonModule/store/actions";
 import * as categorieAction from "../../../../CategoryModule/store/actions";
+import * as movieAction from "../../../../MovieModule/store/actions";
 import {connect} from "react-redux";
+import { withRouter  } from 'react-router-dom'
 import {Divider, Typography, Button, Stepper, Step, StepLabel} from "material-ui";
 
 class MovieForm extends Component {
@@ -18,9 +20,16 @@ class MovieForm extends Component {
             budget: 0,
             income: 0,
             releaseDate: new Date(),
+            category: {
+                id:0
+            },
+            director:{
+                id:0
+            },
+            actors:[]
         },
         actor: {
-            id:1,
+            id:0,
             role:''
         }
 
@@ -28,8 +37,8 @@ class MovieForm extends Component {
 
     steps = [
         {label: "Saisie des proriétés du film", optional: false, validate: (movie) => this.propertiesIsValid(movie)},
-        {label: "Choix de la categorie du film", optional: false, validate: (movie) => this.categoryIsValid(movie)},
-        {label: "Ajout des acteurs", optional: true, validate: () => true}
+        {label: "Catégorie et directeurs", optional: false, validate: (movie) => this.categoryIsValid(movie)},
+        {label: "Ajout des acteurs", optional: true, validate: () => ({valid:true})}
     ];
 
     componentDidMount() {
@@ -40,15 +49,22 @@ class MovieForm extends Component {
                     movie: props.movie
                 };
             });
-            if (!this.props.categoriesUpToDate || !(this.props.categories.length > 0)) {
-                this.props.onInitCategoryList();
-            }
-            if (!this.props.peopleUpToDate || !(this.props.people.length > 0)) {
-                this.props.onInitPersonList();
-            }
         }
+        if (!this.props.categoriesUpToDate || !(this.props.categories.length > 0)) {
+            this.props.onInitCategoryList();
+        }
+        if (!this.props.peopleUpToDate || !(this.props.people.length > 0)) {
+            this.props.onInitPersonList();
+        }
+    }
 
-
+    componentDidUpdate() {
+        if (!this.props.categoriesUpToDate) {
+            this.props.onInitCategoryList();
+        }
+        if (!this.props.peopleUpToDate) {
+            this.props.onInitPersonList();
+        }
     }
 
     handleChange = name => event => {
@@ -74,6 +90,8 @@ class MovieForm extends Component {
     };
 
     handleAddActor = (person,role) => {
+        if(this.state.movie.actors.filter(actor => actor.id.personId === person.id).length > 0)
+            return;
         const actors = [...this.state.movie.actors];
         console.log(person,role);
         const movie = {
@@ -82,8 +100,8 @@ class MovieForm extends Component {
         };
         actors.push({
             id:{
-                idPerson:person.id,
-                idMovie:this.state.movie.id
+                personId:person.id,
+                movieId:this.state.movie.id
             },
             person:person,
             movie:this.state.movie,
@@ -100,7 +118,7 @@ class MovieForm extends Component {
             ...this.state,
             movie: {
                 ...this.state.movie,
-                actors:this.state.movie.actors.filter((actor) => actor.id.idPerson !== deleteActor.id.idPerson)
+                actors:this.state.movie.actors.filter((actor) => actor.id.personId !== deleteActor.id.personId)
             }
         });
     };
@@ -143,6 +161,8 @@ class MovieForm extends Component {
     };
 
     submitForm = () => {
+        this.props.saveMovie(this.state.movie);
+        this.props.history.push('/movies')
 
     };
 
@@ -160,6 +180,8 @@ class MovieForm extends Component {
             case 1:
                 return <CategoryForm
                     handleChange={this.handleChange}
+                    director={this.state.movie.director}
+                    people={this.props.people}
                     category={this.state.movie.category}
                     categories={this.props.categories}
                 />;
@@ -184,9 +206,13 @@ class MovieForm extends Component {
         const validation = steps[activeStep].validate(this.state.movie);
         return (
             <div>
-                <Typography type="headline" component="h2" align="center">
-                    {(this.props.movie) ? 'Edition du film' : 'Création du film'}
-                </Typography>
+                <div className="margin-top-bot">
+                    <Typography type="headline" component="h2" align="center">
+                        {(this.props.movie) ? 'Edition du film' : 'Création du film'}
+                    </Typography>
+                </div>
+
+
                 <Divider/>
                 <Stepper activeStep={activeStep}>
                     {steps.map((step, index) => (
@@ -197,7 +223,7 @@ class MovieForm extends Component {
                 </Stepper>
                 {this.stepContent(activeStep)}
 
-                <div>
+                <div className="margin-top-bot">
                     <Button
                         disabled={!(activeStep > 0)}
                         onClick={this.handleBack}
@@ -225,8 +251,9 @@ const mapStateToProps = states => {
 const mapDispatchToProps = dispatch => {
     return {
         onInitCategoryList: () => dispatch(categorieAction.initCategoryListRequest()),
-        onInitPersonList: () => dispatch(personAction.initPersonListRequest())
+        onInitPersonList: () => dispatch(personAction.initPersonListRequest()),
+        saveMovie: (movie) => dispatch(movieAction.saveMovieRequest(movie))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieForm)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MovieForm));

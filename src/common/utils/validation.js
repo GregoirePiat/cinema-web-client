@@ -12,7 +12,7 @@ const RULES = {
 export const validate = (content, rules) => {
     return rules.filter(rule => {
         if(RULES.hasOwnProperty(rule)) {
-            const match = RULES[rule].test(content.toString());
+            const match = RULES[rule].test(content);
             return !match;
         } else {
             return true

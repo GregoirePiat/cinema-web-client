@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actorAction from "../../store/actions";
 import {CircularProgress} from 'material-ui/Progress';
-import Detail from './detail';
+import Detail from './detail/detail';
 
 
 

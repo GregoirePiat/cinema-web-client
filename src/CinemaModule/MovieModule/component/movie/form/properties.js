@@ -11,7 +11,7 @@ const style = {
 export default (props) => (
     <form>
         <Grid container alignItems="flex-start" direction="row" justify="center" spacing={40}>
-            <Grid item xs={12} md={3} sm={6}>
+            <Grid item xs={10} md={4} sm={5}>
                 <div>
                     <TextField
                         id="title"
@@ -52,12 +52,12 @@ export default (props) => (
                 </div>
             </Grid>
 
-            <Grid item xs={12} md={3} sm={6}>
+            <Grid item xs={10} md={4} sm={5}>
                 <div>
                     <TextField
                         id="income"
-                        label="Revenue"
-                        type="income"
+                        label="Bénéfice"
+                        type="number"
                         value={props.income}
                         onChange={props.handleChange('income')}
                         InputLabelProps={{

@@ -9,3 +9,18 @@ body {
     display: block;
     width: 200px;
 }
+
+.relative-block {
+    position: relative;
+}
+
+.top-position {
+    position: absolute;
+    top: 17px;
+    right: 30px;
+}
+
+.margin-top-bot {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

@@ -12,7 +12,7 @@ const setCategoryList = (state, action) => {
         ...state,
         categories: {
             data:action.payload,
-            upToDate:false
+            upToDate:true
         },
     }
 };

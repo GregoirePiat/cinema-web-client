@@ -5,6 +5,9 @@ import Divider from 'material-ui/Divider';
 import {CircularProgress} from 'material-ui/Progress';
 import * as actorAction from "../../store/actions";
 import List from './list';
+import AddIcon from 'material-ui-icons/Add';
+import {Button} from "material-ui";
+
 
 
 
@@ -12,26 +15,44 @@ import List from './list';
 class Actors extends Component {
 
     componentDidMount() {
-        if (!this.props.people.upToDate || !(this.props.people.length > 0)) {
-            this.props.onInitMovies();
+        if (!this.props.upToDate || !(this.props.people.length > 0)) {
+            this.props.onInitPeople();
+        }
+    }
+
+
+    componentDidUpdate() {
+        if (!this.props.upToDate) {
+            this.props.onInitPeople();
         }
     }
 
 
 
-    render() {
 
-        let list = <div className="center-loader"><CircularProgress  size={200}/></div>;
+    render() {
+        let list = <p>Aucun acteur disponnible</p>
+        if(!this.props.upToDate) {
+            list = <div className="center-loader"><CircularProgress  size={200}/></div>;
+        }
+
 
         if (this.props.people.length > 0) {
-            list = <List actors={this.props.people} />
+            list = <List people={this.props.people} />
         }
 
         return (
-            <div>
-                <Typography type="headline" component="h1" align='center'>
-                    Liste des acteurs
-                </Typography>
+            <div className="relative-block">
+                <div className="top-position">
+                    <Button fab mini color="primary" aria-label="edit" >
+                        <AddIcon/>
+                    </Button>
+                </div>
+                <div className="margin-top-bot">
+                    <Typography type="headline" component="h1" align='center'>
+                        Liste des acteurs
+                    </Typography>
+                </div>
                 <Divider/>
                 {list}
             </div>
@@ -47,7 +68,7 @@ const mapStateToProps = states => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        onInitMovies: () => dispatch(actorAction.initPersonListRequest())
+        onInitPeople: () => dispatch(actorAction.initPersonListRequest())
     };
 };
 

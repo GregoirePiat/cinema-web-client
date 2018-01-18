@@ -13,7 +13,7 @@ const setMovieList = (state, action) => {
         ...state,
         movies: {
             data:action.payload,
-            upToDate:false
+            upToDate:true
         },
     }
 };
@@ -25,13 +25,25 @@ const selectMovie = (state, action) => {
     }
 };
 
+const downTodate = (state, action) => {
+    return {
+        ...state,
+        movies: {
+            ...state.movies,
+            upToDate:false
+        },
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_MOVIE_LIST:
             return setMovieList(state,action);
         case actionTypes.ADD_MOVIE:
+            return downTodate(state, action);
         case actionTypes.UPDATE_MOVIE:
-        case actionTypes.DELETE_MOVIE:
+            return downTodate(state, action);
+        case actionTypes.DELETE_MOVIE:break;
         case actionTypes.SELECT_MOVIE:
             return selectMovie(state, action);
         default:

@@ -12,7 +12,7 @@ const setPersonList = (state, action) => {
         ...state,
         people: {
             data:action.payload,
-            upToDate:false
+            upToDate:true
         },
     }
 };
