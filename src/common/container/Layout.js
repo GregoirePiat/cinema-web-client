@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Layout.css';
 import MovieContainer from "../../CinemaModule/MovieModule/container/MovieContainer";
 import ActorContainer from "../../CinemaModule/PersonModule/container/PersonContainer";
+import CategoryContainer from "../../CinemaModule/CategoryModule/container/CategoryContainer";
 import Navbar from "../component/navbar";
 import Button from 'material-ui/Button';
 
@@ -21,7 +22,7 @@ class Layout extends Component {
                     <Switch>
                         <Route path="/movies" component={MovieContainer}/>
                         <Route path="/actors" component={ActorContainer}/>
-                        <Route path="/categories" component={MovieContainer}/>
+                        <Route path="/categories" component={CategoryContainer}/>
                         <Redirect from="/" to="/movies" />
                     </Switch>
 
