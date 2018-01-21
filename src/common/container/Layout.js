@@ -7,6 +7,7 @@ import Navbar from "../component/navbar";
 import Button from 'material-ui/Button';
 
 import {Switch, Route, Redirect, NavLink} from "react-router-dom"
+import Search from "../../CinemaModule/SearchModule/components/movies/Search";
 
 
 class Layout extends Component {
@@ -23,7 +24,8 @@ class Layout extends Component {
                         <Route path="/movies" component={MovieContainer}/>
                         <Route path="/actors" component={ActorContainer}/>
                         <Route path="/categories" component={CategoryContainer}/>
-                        <Redirect from="/" to="/movies" />
+                        <Route path="/" component={Search}/>
+                        <Redirect to="/" />
                     </Switch>
 
                 </div>
