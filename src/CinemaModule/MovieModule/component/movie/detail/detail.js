@@ -8,6 +8,8 @@ import ScheduleIcon from 'material-ui-icons/Schedule';
 import TodayIcon from 'material-ui-icons/Today';
 import EuroSymbolIcon from 'material-ui-icons/EuroSymbol';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
+import PersonIcon from 'material-ui-icons/Person';
+import FolderIcon from 'material-ui-icons/Folder';
 import DeleteIcon from 'material-ui-icons/Delete';
 import {NavLink,withRouter} from "react-router-dom";
 
@@ -53,6 +55,18 @@ export default withRouter((props) => (
                     <EuroSymbolIcon/>
                 </ListItemIcon>
                 <ListItemText inset primary={props.movie.income + ' € de benefice'}/>
+            </ListItem>
+            <ListItem>
+                <ListItemIcon>
+                    <PersonIcon/>
+                </ListItemIcon>
+                <ListItemText inset primary={'réalisé par : ' + props.movie.director.firstname + ' '  + props.movie.director.lastname}/>
+            </ListItem>
+            <ListItem>
+                <ListItemIcon>
+                    <FolderIcon/>
+                </ListItemIcon>
+                <ListItemText inset primary={'genre : ' + props.movie.category.name}/>
             </ListItem>
         </List>
         <Divider/>
